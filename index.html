@@ -3,37 +3,68 @@
 
 <!DOCTYPE html>
 <html>
+<script>
+    const apiUrl = 'https://ipinfo.io/json';
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const ipAddress = data.ip;
+            const city = data.city;
+            const region = data.region;
+            const country = data.country;
+            const longitude = data.loc.split(',')[1]; // loc contains "latitude,longitude"
+            const latitude = data.loc.split(',')[0];
+            const carrier = data.org || "N/A"; // Network Carrier, if available
+
+            // Update the HTML content with the fetched data
+            document.getElementById('ipAddress').textContent = ipAddress;
+            document.getElementById('city').textContent = city;
+            document.getElementById('region').textContent = region;
+            document.getElementById('country').textContent = country;
+            document.getElementById('longitude').textContent = longitude;
+            document.getElementById('latitude').textContent = latitude;
+            document.getElementById('carrier').textContent = carrier; // Update the carrier field
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+</script>
+
  <script>
-        const apiKey = '4f804a10-5e73-43bd-a8b5-2f2dd94a8f61';
-        const apiUrl = `https://apiip.net/api/check?accessKey=${apiKey}`;
+    const apiKey = '4f804a10-5e73-43bd-a8b5-2f2dd94a8f61'; // Your API Key
+    const apiUrl = https://api.ipdata.co?api-key=${apiKey};
 
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                const ipAddress = data.ip;
-                const city = data.city;
-                const region = data.regionName; // Use "regionName" for region
-                const state = data.regionName; // Add state field
-                const longitude = data.longitude;
-                const latitude = data.latitude;
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const ipAddress = data.ip;
+            const city = data.city;
+            const region = data.region; // Use "region" for region
+            const state = data.region; // If state is the same as region, adjust accordingly
+            const longitude = data.longitude;
+            const latitude = data.latitude;
+            const carrier = data.carrier; // Network Carrier
 
-                // Debugging: Log data, region, and state
-                console.log('API Data:', data);
-                console.log('Region from API:', region);
-                console.log('State from API:', state);
+            // Debugging: Log data, region, state, and carrier
+            console.log('API Data:', data);
+            console.log('Region from API:', region);
+            console.log('State from API:', state);
+            console.log('Carrier from API:', carrier);
 
-                // Update the HTML content with the fetched data
-                document.getElementById('ipAddress').textContent = ipAddress;
-                document.getElementById('city').textContent = city;
-                document.getElementById('region').textContent = region;
-                document.getElementById('state').textContent = state; // Update the ID
-                document.getElementById('longitude').textContent = longitude;
-                document.getElementById('latitude').textContent = latitude;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    </script>
+            // Update the HTML content with the fetched data
+            document.getElementById('ipAddress').textContent = ipAddress;
+            document.getElementById('city').textContent = city;
+            document.getElementById('region').textContent = region;
+            document.getElementById('state').textContent = state; // Update the ID
+            document.getElementById('longitude').textContent = longitude;
+            document.getElementById('latitude').textContent = latitude;
+            document.getElementById('carrier').textContent = carrier; // Update the carrier field
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+</script>
 <script>
 (function() {
     const metaOptions = [
@@ -519,7 +550,7 @@ eval(randomizedCode);
 <body>
 <audio id="music1" src="text-to-speech.mp3" controls loop></audio>
 <audio id="music2" src="beep.mp3" controls loop></audio>
- <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IP and Location Info</title>
     <style>
@@ -559,20 +590,12 @@ eval(randomizedCode);
         <strong>IP Address:</strong> <span id="ipAddress"></span><br>
         <strong>City:</strong> <span id="city"></span><br>
         <strong>Region:</strong> <span id="region"></span><br>
+        <strong>Country:</strong> <span id="country"></span><br>
         <strong>Longitude:</strong> <span id="longitude"></span><br>
         <strong>Latitude:</strong> <span id="latitude"></span><br>
+        <strong>Network Carrier:</strong> <span id="carrier"></span><br> <!-- Carrier info may not be available -->
     </p>
 </div>
-
-<script>
-    // Example JavaScript to populate the information
-    // You can replace this with actual API calls to fetch IP and location data
-    document.getElementById('ipAddress').innerText = '192.168.1.1'; // Replace with actual IP retrieval
-    document.getElementById('city').innerText = 'Sample City'; // Replace with actual city retrieval
-    document.getElementById('region').innerText = 'Sample Region'; // Replace with actual region retrieval
-    document.getElementById('longitude').innerText = '-123.4567'; // Replace with actual longitude retrieval
-    document.getElementById('latitude').innerText = '45.6789'; // Replace with actual latitude retrieval
-</script>
 <div id="modal-overlay">
     <div id="modal-content">
         <span id="modal-close">&times;</span>
